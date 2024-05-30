@@ -160,12 +160,8 @@
          $disp_stat_dig1 = >>1$lose_game && $ii > m5_CLKS_PER_ADV_MAX/3 && $ii <= m5_CLKS_PER_ADV_MAX/3*2;
          $disp_stat_dig2 = >>1$lose_game && $ii > m5_CLKS_PER_ADV_MAX/3*2;
          
-         /*$stat_stg_dig[7:4] = $disp_stat_dig1
-                              ? ($game_stg-1)[m5_DEPTH_INDEX_MAX:4] :
-                              $disp_stat_dig2
-                              ? ($game_stg-1)[3:0] :
-                              0;*/
-         $game_stg_m1[7:0] = $game_stg - 1;
+         
+         $game_stg_m1[7:0] = {3'b0,$game_stg} - 1; // !!!!!! hard code zero padding
          /* verilator lint_off WIDTH */
          $stat_dig1[7:0] =
                      $game_stg_m1[7:4] == 0

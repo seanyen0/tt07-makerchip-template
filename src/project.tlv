@@ -21,7 +21,7 @@
    //-------------------------------------------------------
    
    var(in_fpga, 1)   /// 1 to include the demo board. (Note: Logic will be under /fpga_pins/fpga.)
-   var(debounce_inputs, m5_if_defined_as(MAKERCHIP, 1, 0, 1))         /// 1: Provide synchronization and debouncing on all input signals.
+   var(debounce_inputs, 0)         /// 1: Provide synchronization and debouncing on all input signals.
                                    /// 0: Don't provide synchronization and debouncing.
                                    /// m5_if_defined_as(MAKERCHIP, 1, 0, 1): Debounce unless in Makerchip.
    //user variables
@@ -67,7 +67,8 @@
       
       @-1
          $reset_in = *reset || *ui_in[7] || >>3$lose_game && >>2$user_button_press;
-         
+         // USER INPUT
+         $user_input[3:0] = *ui_in[3:0]; //"continuous" intake of user buttons
       
       @1   
          //native clock count. Feeds into subdividing into human-respondable clock $game_cnt.
@@ -129,8 +130,7 @@
          
          
          
-         // USER INPUT PHASE (should include $state_guess in conditionals!)
-         $user_input[3:0] = *ui_in[3:0]; //"continuous" intake of user buttons
+         //Process user inputs
          $user_button_press = ( >>1$user_input == 4'b0 ) && ( $user_input != 4'b0 ) && >>1$state_guess; // User must release previous button before pressing the next button
          $user_guess[1:0] = $user_button_press && $user_input == 4'b0001
                        ? 2'b00 :

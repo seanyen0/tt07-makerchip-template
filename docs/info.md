@@ -9,12 +9,14 @@ You can also include images in this folder and reference them in the markdown. E
 
 ## How it works
 
-Explain how your project works
+SIMON game. Comes up with sequences of increasing length. User imitates sequence with Digilent PmodBTN. If user loses, 7-segment display shows "L" and user's max number of correct sequences in hex. Upon losing, user can press any button to reset.
 
 ## How to test
 
-Explain how to use your project
+Manual reset can be applied by toggling input "in7" high-low. 
+
+User needs PmodBTN to enter the guesses.
 
 ## External hardware
 
-List external hardware used in your project (e.g. PMOD, LED display, etc), if any
+Digilent PmodBTN plugged into upper row of input header.
